@@ -31,6 +31,13 @@ public class SchedulesEntity {
     @JoinColumn(name = "film_code", referencedColumnName = "film_code", insertable = false, updatable = false)
     private FilmsEntity filmsEntity;
 
+    @Column(name = "studio_id")
+    private Integer studioId;
+
+    @OneToOne
+    @JoinColumn(name = "studio_id", insertable = false, updatable = false)
+    private StudiosEntity studiosEntity;
+
     @Column(name = "price")
     private Integer price;
 

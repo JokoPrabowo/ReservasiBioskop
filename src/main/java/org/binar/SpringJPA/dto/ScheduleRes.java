@@ -11,6 +11,7 @@ import lombok.Setter;
 public class ScheduleRes {
     private Integer scheduleId;
     private String filmCode;
+    private Integer studioId;
     private Integer price;
     private LocalDate showDate;
     private LocalTime startAt;

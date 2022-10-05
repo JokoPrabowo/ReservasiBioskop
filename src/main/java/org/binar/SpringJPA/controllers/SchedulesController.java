@@ -26,6 +26,7 @@ public class SchedulesController {
             SchedulesEntity input = schedulesServiceImpl.create(schedule);
             response.setScheduleId(input.getScheduleId());
             response.setFilmCode(input.getFilmCode());
+            response.setStudioId(input.getStudioId());
             response.setPrice(input.getPrice());
             response.setShowDate(input.getShowDate());
             response.setStartAt(input.getStartAt());
@@ -59,6 +60,7 @@ public class SchedulesController {
                 ScheduleRes response = new ScheduleRes();
                 response.setScheduleId(x.getScheduleId());
                 response.setFilmCode(x.getFilmCode());
+                response.setStudioId(x.getStudioId());
                 response.setPrice(x.getPrice());
                 response.setShowDate(x.getShowDate());
                 response.setStartAt(x.getStartAt());
@@ -85,6 +87,7 @@ public class SchedulesController {
             SchedulesEntity input = schedulesServiceImpl.findOne(id);
             response.setScheduleId(input.getScheduleId());
             response.setFilmCode(input.getFilmCode());
+            response.setStudioId(input.getStudioId());
             response.setPrice(input.getPrice());
             response.setShowDate(input.getShowDate());
             response.setStartAt(input.getStartAt());

@@ -34,13 +34,6 @@ public class TicketsEntity {
     @JoinColumn(name = "schedule_id", insertable = false, updatable = false)
     private SchedulesEntity schedulesEntity;
 
-    @Column(name = "studio_id")
-    private Integer studioId;
-
-    @OneToOne
-    @JoinColumn(name = "studio_id", insertable = false, updatable = false)
-    private StudiosEntity studiosEntity;
-
     @Column(name = "seat_row")
     private Character seatRow;
 
