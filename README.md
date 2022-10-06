@@ -7,12 +7,12 @@ User dapat memesan tiket lebih dari satu
 **Films One To Many Schedules**
 Film dapat memiliki lebih dari satu jadwal penayangan
 <br>
-**Tickets Many To One Schedules**
-Lebih dari satu tiket bisa digunakan untuk menonton pada satu jadwal
+**Schedules One To One Studios**
+Satu jadwal hanya ditayangkan pada satu Studio
 <br>
 **Studios One To Many Seats**
 Studio memiliki lebih dari satu tempat duduk
 <br>
-**Tickets One To One Seats**
-Satu tiket hanya bisa digunakan untuk memesan satu tempat duduk
+**Tickets Many To One Schedules**
+Lebih dari satu tiket bisa digunakan untuk menonton pada satu jadwal
 
