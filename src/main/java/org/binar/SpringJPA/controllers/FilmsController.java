@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import java.util.List;
 
 @RestController
@@ -16,6 +18,7 @@ public class FilmsController {
     @Autowired
     FilmsServiceImpl filmsServiceImpl;
 
+    @Operation(summary = "create new film")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody FilmsEntity film){
         try{
@@ -29,6 +32,7 @@ public class FilmsController {
         }
     }
 
+    @Operation(summary = "Update a film")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable String id, @RequestBody FilmsEntity film){
         try{
@@ -43,19 +47,25 @@ public class FilmsController {
         }
     }
 
+    @Operation(summary = "Get all films")
     @GetMapping("/get-all")
     public Iterable<FilmsEntity> findAll(){
         return filmsServiceImpl.findAll();
     }
+
+    @Operation(summary = "Get a film by its id")
     @GetMapping("/get-one/{id}")
     public FilmsEntity findOne(@PathVariable String id){
         return filmsServiceImpl.findOne(id);
     }
 
+    @Operation(summary = "Get showing films")
     @GetMapping("/get-showing")
     public List<FilmsEntity> isShowing(){
         return filmsServiceImpl.isShowing();
     }
+
+    @Operation(summary = "Delete a film by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable String id){
         filmsServiceImpl.delete(id);

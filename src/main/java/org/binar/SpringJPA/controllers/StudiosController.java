@@ -8,12 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/studios")
 public class StudiosController {
     @Autowired
     StudiosServiceImpl studiosServiceImpl;
 
+    @Operation(summary = "Create a studio")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody StudiosEntity studio){
         try{
@@ -27,6 +30,7 @@ public class StudiosController {
         }
     }
 
+    @Operation(summary = "Update a studio by its id")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable Integer id, @RequestBody StudiosEntity studio){
         try{
@@ -41,14 +45,19 @@ public class StudiosController {
         }
     }
 
+    @Operation(summary = "Get all studios")
     @GetMapping("/get-all")
     public Iterable<StudiosEntity> findAll(){
         return studiosServiceImpl.findAll();
     }
+
+    @Operation(summary = "Get a studio by its id")
     @GetMapping("/get-one/{id}")
     public StudiosEntity findOne(@PathVariable Integer id){
         return studiosServiceImpl.findOne(id);
     }
+
+    @Operation(summary = "Delete a studio by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable Integer id){
         studiosServiceImpl.delete(id);

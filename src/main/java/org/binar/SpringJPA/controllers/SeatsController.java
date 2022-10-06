@@ -13,12 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/seats")
 public class SeatsController {
     @Autowired
     SeatsServiceImpl seatsServiceImpl;
 
+    @Operation(summary = "Create a new seat")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody SeatsEntity seat){
         try{
@@ -39,16 +42,19 @@ public class SeatsController {
         }
     }
 
+    @Operation(summary = "Get all seats")
     @GetMapping("/get-all")
     public Iterable<SeatsEntity> findAll(){
         return seatsServiceImpl.findAll();
     }
 
+    @Operation(summary = "Get a seat by its id")
     @GetMapping("/get-one/{row}/{number}")
     public SeatsEntity findOne(@PathVariable Character row, @PathVariable Integer number){
         return seatsServiceImpl.findOne(new SeatId(row, number));
     }
 
+    @Operation(summary = "Get seats by StudioId")
     @GetMapping("/get-seat-bystudio/{id}")
     public ResponseEntity<ResponseData> findByStudioId(@PathVariable Integer id){
         try{
@@ -75,6 +81,7 @@ public class SeatsController {
         }
     }
 
+    @Operation(summary = "Update a seat by its id")
     @PutMapping("/update/{row}/{number}")
     public ResponseEntity<ResponseData> update(@PathVariable Character row, @PathVariable Integer number, @RequestBody SeatsEntity seat){
         try{
@@ -96,6 +103,7 @@ public class SeatsController {
         }
     }
 
+    @Operation(summary = "Delete a seat by its id")
     @DeleteMapping("/drop/{row}/{number}")
     public void delete(@PathVariable Character row, @PathVariable Integer number){
         seatsServiceImpl.delete(new SeatId(row, number));

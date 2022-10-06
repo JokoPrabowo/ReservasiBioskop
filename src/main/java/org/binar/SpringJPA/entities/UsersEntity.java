@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -14,13 +15,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "users")
 public class UsersEntity {
+
+    @NotNull
     @Id
     @Column(name = "username")
     private String username;
 
+    @NotNull
     @Column(name = "email")
     private String email;
 
+    @NotNull
     @Column(name = "password")
     private String password;
 }

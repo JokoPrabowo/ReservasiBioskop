@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -37,6 +38,7 @@ public class TicketsController {
     @Autowired
     SchedulesServiceImpl schedulesServiceImpl;
 
+    @Operation(summary = "Create a reservation")
     @PostMapping("/buy-ticket")
     public ResponseEntity<ResponseData> create(@RequestBody TicketsEntity ticket){
         try{
@@ -68,6 +70,7 @@ public class TicketsController {
         }
     }
 
+    @Operation(summary = "Update a ticket")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable Integer id, @RequestBody TicketsEntity ticket){
         try{
@@ -82,14 +85,19 @@ public class TicketsController {
         }
     }
 
+    @Operation(summary = "Get all tickets")
     @GetMapping("/get-all")
     public Iterable<TicketsEntity> findAll(){
         return ticketsServiceImpl.findAll();
     }
+
+    @Operation(summary = "Get a ticket by its id")
     @GetMapping("/get-one/{id}")
     public TicketsEntity findOne(@PathVariable Integer id){
         return ticketsServiceImpl.findOne(id);
     }
+
+    @Operation(summary = "Delete a ticket by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable Integer id){
         ticketsServiceImpl.delete(id);
