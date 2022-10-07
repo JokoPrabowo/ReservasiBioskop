@@ -1,9 +1,15 @@
 package org.binar.SpringJPA.controllers;
 
+import java.io.ByteArrayInputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.binar.SpringJPA.dto.ResponseData;
 import org.binar.SpringJPA.dto.TicketData;
 import org.binar.SpringJPA.entities.*;
 import org.binar.SpringJPA.services.impl.FilmsServiceImpl;
+import org.binar.SpringJPA.services.impl.InvoiceServiceImpl;
 import org.binar.SpringJPA.services.impl.SchedulesServiceImpl;
 import org.binar.SpringJPA.services.impl.SeatsServiceImpl;
 import org.binar.SpringJPA.services.impl.StudiosServiceImpl;
@@ -15,7 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketsController {
@@ -38,9 +46,12 @@ public class TicketsController {
     @Autowired
     SchedulesServiceImpl schedulesServiceImpl;
 
+    @Autowired
+    InvoiceServiceImpl invoiceServiceImpl;
+
     @Operation(summary = "Create a reservation")
     @PostMapping("/buy-ticket")
-    public ResponseEntity<ResponseData> create(@RequestBody TicketsEntity ticket){
+    public ResponseEntity<ResponseData> create(HttpServletResponse response, @RequestBody TicketsEntity ticket){
         try{
             ResponseData data = new ResponseData();
             TicketData tdata = new TicketData();
@@ -64,8 +75,14 @@ public class TicketsController {
             data.setStatus("200");
             data.setMessagge("Ticket successfully reserved");
             data.setData(tdata);
+            ByteArrayInputStream invoice = new ByteArrayInputStream(invoiceServiceImpl.generateFile(tdata));
+            response.addHeader("Content-Disposition", "attachment; filename=" + tdata.getUsername() + ".pdf");
+            response.setContentType("application/octet-stream");
+            IOUtils.copy(invoice, response.getOutputStream());
+            response.flushBuffer();
             return ResponseEntity.ok(data);
         }catch (Exception e){
+            log.info("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
