@@ -21,33 +21,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketsController {
 
     @Autowired
-    TicketsServiceImpl ticketsServiceImpl;
+    private TicketsServiceImpl ticketsServiceImpl;
 
     @Autowired
-    SeatsServiceImpl seatsServiceImpl;
+    private SeatsServiceImpl seatsServiceImpl;
 
     @Autowired
-    FilmsServiceImpl filmsServiceImpl;
+    private FilmsServiceImpl filmsServiceImpl;
 
     @Autowired
-    UsersServiceImpl usersServiceImpl;
+    private UsersServiceImpl usersServiceImpl;
 
     @Autowired
-    StudiosServiceImpl studiosServiceImpl;
+    private StudiosServiceImpl studiosServiceImpl;
 
     @Autowired
-    SchedulesServiceImpl schedulesServiceImpl;
+    private SchedulesServiceImpl schedulesServiceImpl;
 
     @Autowired
-    InvoiceServiceImpl invoiceServiceImpl;
+    private InvoiceServiceImpl invoiceServiceImpl;
 
     @Operation(summary = "Create a reservation")
     @PostMapping("/buy-ticket")
@@ -77,12 +75,10 @@ public class TicketsController {
             data.setData(tdata);
             ByteArrayInputStream invoice = new ByteArrayInputStream(invoiceServiceImpl.generateFile(tdata));
             response.addHeader("Content-Disposition", "attachment; filename=" + tdata.getUsername() + ".pdf");
-            response.setContentType("application/octet-stream");
             IOUtils.copy(invoice, response.getOutputStream());
             response.flushBuffer();
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            log.info("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }

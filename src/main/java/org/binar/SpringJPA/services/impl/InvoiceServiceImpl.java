@@ -11,8 +11,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,23 +21,20 @@ import java.util.Map;
 import org.binar.SpringJPA.dto.TicketData;
 import org.binar.SpringJPA.services.InvoiceService;
 
-
-@Slf4j
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
 
     public byte[] generateFile(TicketData data){
         try{
-            File file = ResourceUtils.getFile("Invoice.jrxml");
+            File file = ResourceUtils.getFile("classpath:Invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-            List<TicketData> ticket = new ArrayList<>();
-            ticket.add(data);
+            List<Object> state = new ArrayList<>();
+            state.add(data);
             Map<String, Object> parameter = new HashMap<>();
-            parameter.put("user", data.getUsername());
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JRBeanCollectionDataSource(ticket));
+            parameter.put("data", "myData");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JRBeanCollectionDataSource(state));
             return JasperExportManager.exportReportToPdf(jasperPrint);
-        }catch(IOException | JRException e){
-            log.info("error has accour()", e.getMessage());            
+        }catch(IOException | JRException e){          
             return null;
         }
     }

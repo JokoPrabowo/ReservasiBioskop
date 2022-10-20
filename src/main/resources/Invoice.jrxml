@@ -30,7 +30,7 @@ LDQ4LDlmZTQ4OGU0LWQwNjMtNDFmOS04NDNlLTIzYTRmZjM0NWY1MTs=]]>
 	</style>
 	<field name="username" class="java.lang.String">
 	</field>
-	<field name="filmName" class="java.lang.String">
+	<field name="film" class="java.lang.String">
 	</field>
 	<field name="price" class="java.lang.Integer">
 	</field>
@@ -40,21 +40,17 @@ LDQ4LDlmZTQ4OGU0LWQwNjMtNDFmOS04NDNlLTIzYTRmZjM0NWY1MTs=]]>
 	</field>
 	<field name="seatNumber" class="java.lang.Integer">
 	</field>
-	<field name="showDate" class="java.sql.LocalDate">
+	<field name="showDate" class="java.time.LocalDate">
 	</field>
-	<field name="startAt" class="java.sql.LocalTime">
+	<field name="startAt" class="java.time.LocalTime">
 	</field>
-	<field name="endAt" class="java.sql.LocalTime">
+	<field name="endAt" class="java.time.LocalTime">
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="132" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="5" width="118" height="120" uuid="d47168ce-aae1-4efc-8d24-e15195025a5a"/>
-				<imageExpression><![CDATA["film.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="Title" x="120" y="10" width="435" height="93" uuid="f49d68fd-a2c7-44ec-a5fc-9300d10c85a1"/>
 				<textElement>
@@ -109,7 +105,7 @@ LDQ4LDlmZTQ4OGU0LWQwNjMtNDFmOS04NDNlLTIzYTRmZjM0NWY1MTs=]]>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{filmName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{film}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Column header" positionType="Float" x="79" y="40" width="132" height="20" forecolor="#000000" uuid="439d5617-3868-4faa-a4de-82f2e004fde4"/>
