@@ -21,7 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketsController {
@@ -50,6 +52,7 @@ public class TicketsController {
     @Operation(summary = "Create a reservation")
     @PostMapping("/buy-ticket")
     public ResponseEntity<ResponseData> create(HttpServletResponse response, @RequestBody TicketsEntity ticket){
+        log.info("Processing ticket data");
         try{
             ResponseData data = new ResponseData();
             TicketData tdata = new TicketData();
@@ -79,13 +82,18 @@ public class TicketsController {
             response.flushBuffer();
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Update a ticket")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable Integer id, @RequestBody TicketsEntity ticket){
+        log.info("Processing ticket data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
@@ -94,25 +102,32 @@ public class TicketsController {
             data.setData(ticketsServiceImpl.findOne(id));
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Get all tickets")
     @GetMapping("/get-all")
     public Iterable<TicketsEntity> findAll(){
+        log.info("Processing tickets data");
         return ticketsServiceImpl.findAll();
     }
 
     @Operation(summary = "Get a ticket by its id")
     @GetMapping("/get-one/{id}")
     public TicketsEntity findOne(@PathVariable Integer id){
+        log.info("Processing ticket data");
         return ticketsServiceImpl.findOne(id);
     }
 
     @Operation(summary = "Delete a ticket by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable Integer id){
+        log.info("Processing ticket data");
         ticketsServiceImpl.delete(id);
     }
 }

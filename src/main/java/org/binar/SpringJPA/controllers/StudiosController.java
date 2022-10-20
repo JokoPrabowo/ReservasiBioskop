@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/studios")
 public class StudiosController {
@@ -19,6 +21,7 @@ public class StudiosController {
     @Operation(summary = "Create a studio")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody StudiosEntity studio){
+        log.info("Processing studio data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
@@ -33,6 +36,7 @@ public class StudiosController {
     @Operation(summary = "Update a studio by its id")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable Integer id, @RequestBody StudiosEntity studio){
+        log.info("Processing studio data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
@@ -48,18 +52,21 @@ public class StudiosController {
     @Operation(summary = "Get all studios")
     @GetMapping("/get-all")
     public Iterable<StudiosEntity> findAll(){
+        log.info("Processing studios data");
         return studiosServiceImpl.findAll();
     }
 
     @Operation(summary = "Get a studio by its id")
     @GetMapping("/get-one/{id}")
     public StudiosEntity findOne(@PathVariable Integer id){
+        log.info("Processing studio data");
         return studiosServiceImpl.findOne(id);
     }
 
     @Operation(summary = "Delete a studio by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable Integer id){
+        log.info("Processing studio data");
         studiosServiceImpl.delete(id);
     }
 }

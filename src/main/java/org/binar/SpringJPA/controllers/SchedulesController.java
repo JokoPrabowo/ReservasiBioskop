@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/schedules")
 public class SchedulesController {
@@ -23,6 +25,7 @@ public class SchedulesController {
     @Operation(summary = "Create a schedule for a film")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody SchedulesEntity schedule){
+        log.info("Processing schedule data");
         try{
             ResponseData data = new ResponseData();
             ScheduleRes response = new ScheduleRes();
@@ -39,25 +42,32 @@ public class SchedulesController {
             data.setData(response);
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Get all schedules")
     @GetMapping("/get-all")
     public Iterable<SchedulesEntity> findAll(){
+        log.info("Processing schedules data");
         return schedulesServiceImpl.findAll();
     }
 
     @Operation(summary = "Get a schedule by its id")
     @GetMapping("/get-one/{id}")
     public SchedulesEntity findOne(@PathVariable Integer id){
+        log.info("Processing schedule data");
         return schedulesServiceImpl.findOne(id);
     }
 
     @Operation(summary = "Get schedules by its film code")
     @GetMapping("/get-film/{code}")
     public ResponseEntity<ResponseData> findByCode(@PathVariable String code){
+        log.info("Processing schedule data");
         try{
             ResponseData data = new ResponseData();
             List<ScheduleRes> list = new ArrayList<>();
@@ -80,13 +90,18 @@ public class SchedulesController {
             data.setData(list);
             return ResponseEntity.ok(data);
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Update a schedule by its id")
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseData> update(@PathVariable Integer id, @RequestBody SchedulesEntity schedule){
+        log.info("Processing schedule data");
         try{
             ResponseData data = new ResponseData();
             ScheduleRes response = new ScheduleRes();
@@ -104,13 +119,18 @@ public class SchedulesController {
             data.setData(response);
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Delete a schedule by its id")
     @DeleteMapping("/drop/{id}")
     public void delete(@PathVariable Integer id){
+        log.info("Processing schedule data");
         schedulesServiceImpl.delete(id);
     }
 }

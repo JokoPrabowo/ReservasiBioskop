@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
@@ -19,6 +21,7 @@ public class UsersController {
     @Operation(summary = "Create a user")
     @PostMapping("/create")
     public ResponseEntity<ResponseData> create(@RequestBody UsersEntity user){
+        log.info("Processing user data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
@@ -26,13 +29,18 @@ public class UsersController {
             data.setData(usersServiceImpl.create(user));
             return ResponseEntity.ok(data);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
         }
     }
 
     @Operation(summary = "Update a user by its username")
     @PutMapping("/update/{username}")
     public ResponseEntity<ResponseData> update(@PathVariable String username, @RequestBody UsersEntity user){
+        log.info("Processing user data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
@@ -51,18 +59,21 @@ public class UsersController {
     @Operation(summary = "Get all users")
     @GetMapping("/get-all")
     public Iterable<UsersEntity> findAll(){
+        log.info("Processing users data");
         return usersServiceImpl.findAll();
     }
 
     @Operation(summary = "Get a user by its username")
     @GetMapping("/get-one/{username}")
     public UsersEntity findOne(@PathVariable String username){
+        log.info("Processing user data");
         return usersServiceImpl.findById(username);
     }
 
     @Operation(summary = "Delete a user by its username")
     @DeleteMapping("/drop/{username}")
     public void delete(@PathVariable String username){
+        log.info("Processing user data");
         usersServiceImpl.delete(username);
     }
 }
