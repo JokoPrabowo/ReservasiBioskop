@@ -78,9 +78,6 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-//    public UsersEntity update(@PathVariable String username, @RequestBody UsersEntity user){
-//        return  usersServiceImpl.update(username, user);
-//    }
 
     @Operation(summary = "Get all users")
     @GetMapping("/get-all")
