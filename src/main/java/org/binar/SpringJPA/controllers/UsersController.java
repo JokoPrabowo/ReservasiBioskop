@@ -18,15 +18,41 @@ public class UsersController {
     @Autowired
     private UsersServiceImpl usersServiceImpl;
 
-    @Operation(summary = "Create a user")
-    @PostMapping("/create")
-    public ResponseEntity<ResponseData> create(@RequestBody UsersEntity user){
+    @Operation(summary = "Register new account")
+    @PostMapping("/signup")
+    public ResponseEntity<ResponseData> signup(@RequestBody UsersEntity user){
         log.info("Processing user data");
         try{
             ResponseData data = new ResponseData();
             data.setStatus("200");
             data.setMessagge("User successfully created");
             data.setData(usersServiceImpl.create(user));
+            return ResponseEntity.ok(data);
+        }catch (Exception e){
+            ResponseData data = new ResponseData();
+            data.setStatus("400");
+            data.setMessagge(e.getMessage());
+            data.setData(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
+        }
+    }
+
+    @Operation(summary = "Login to account")
+    @GetMapping("/signin")
+    public ResponseEntity<ResponseData> signin(@RequestBody UsersEntity user){
+        log.info("Processing user data");
+        try{
+            ResponseData data = new ResponseData();
+            UsersEntity usersEntity = usersServiceImpl.findById(user.getUsername());
+            if(usersEntity.getPassword() != user.getPassword()){
+                data.setStatus("400");
+                data.setMessagge("Incorrect password");
+                data.setData(null);
+                return ResponseEntity.ok(data);
+            }
+            data.setStatus("200");
+            data.setMessagge("User successfully signin");
+            data.setData(usersEntity);
             return ResponseEntity.ok(data);
         }catch (Exception e){
             ResponseData data = new ResponseData();
