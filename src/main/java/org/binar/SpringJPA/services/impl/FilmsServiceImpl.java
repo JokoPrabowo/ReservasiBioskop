@@ -23,7 +23,7 @@ public class FilmsServiceImpl implements FilmsService {
             log.info("Film has been created");
             return filmsRepo.save(film);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class FilmsServiceImpl implements FilmsService {
             log.info("Film has been updated");
             return filmsRepo.save(data);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class FilmsServiceImpl implements FilmsService {
             log.info("Film has been retrieved");
             return film.get();
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }

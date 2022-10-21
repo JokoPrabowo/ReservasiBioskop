@@ -23,7 +23,7 @@ public class SchedulesServiceImpl implements SchedulesService {
             log.info("Schedule has been created");
             return schedulesRepo.save(schedule);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class SchedulesServiceImpl implements SchedulesService {
             data.getEndAt();
             return schedulesRepo.save(data);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class SchedulesServiceImpl implements SchedulesService {
             log.info("Schedule has been retrieved");
             return schedule.get();
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }

@@ -20,13 +20,15 @@ import java.util.Map;
 
 import org.binar.SpringJPA.dto.TicketData;
 import org.binar.SpringJPA.services.InvoiceService;
-import org.jfree.util.Log;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
 
     public byte[] generateFile(TicketData data){
-        Log.info("Creating a ticket");
+        log.info("Creating a ticket");
         try{
             File file = ResourceUtils.getFile("classpath:Invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -35,10 +37,10 @@ public class InvoiceServiceImpl implements InvoiceService{
             Map<String, Object> parameter = new HashMap<>();
             parameter.put("data", "myData");
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JRBeanCollectionDataSource(state));
-            Log.info("Ticket has been created");
+            log.info("Ticket has been created");
             return JasperExportManager.exportReportToPdf(jasperPrint);
         }catch(IOException | JRException e){    
-            Log.error("Error detected",e);      
+            log.error("Error detected {}", e.getMessage());      
             return null;
         }
     }

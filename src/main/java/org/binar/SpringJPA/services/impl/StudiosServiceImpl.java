@@ -22,7 +22,7 @@ public class StudiosServiceImpl implements StudiosService {
             log.info("Studio has been created");
             return studiosRepo.save(studio);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -34,7 +34,7 @@ public class StudiosServiceImpl implements StudiosService {
             log.info("Studio has been updated");
             return studiosRepo.save(data);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class StudiosServiceImpl implements StudiosService {
             log.info("Studio has been retrieved");
             return studio.get();
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }

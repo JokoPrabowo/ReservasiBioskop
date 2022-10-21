@@ -25,7 +25,7 @@ public class SeatsServiceImpl implements SeatsService {
             log.info("Seat has been created");
             return  seatsRepo.save(seat);   
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class SeatsServiceImpl implements SeatsService {
             log.info("Seat has been updated");
             return  seatsRepo.save(data);    
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class SeatsServiceImpl implements SeatsService {
             log.info("Seat has been retrieved");
             return seat.get();   
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }

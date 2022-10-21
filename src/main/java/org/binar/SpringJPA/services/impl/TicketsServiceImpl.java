@@ -22,7 +22,7 @@ public class TicketsServiceImpl implements TicketsService {
             log.info("Ticket data has been created");
             return ticketsRepo.save(ticket);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
@@ -33,7 +33,7 @@ public class TicketsServiceImpl implements TicketsService {
             log.info("Ticket data has been updated");
             return ticketsRepo.save(data);
         }catch(Exception e){
-            log.error("Error detected", e);
+            log.error("Error detected {}", e.getMessage());
             return null;
         }
     }
