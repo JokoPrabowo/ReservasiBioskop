@@ -1,5 +1,6 @@
 package org.binar.SpringJPA;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +20,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 @SpringBootApplication
 public class SpringJpaApplication {
@@ -41,6 +48,18 @@ public class SpringJpaApplication {
 			schedule.create(new SchedulesEntity(null, "F0001", null, 1, null, 75000, LocalDate.parse("20/12/2022", date), LocalTime.parse("10:00:00", time), LocalTime.parse("12:30:00", time)));
 			schedule.create(new SchedulesEntity(null, "F0001", null, 1, null, 75000, LocalDate.parse("20/12/2022", date), LocalTime.parse("18:30:00", time), LocalTime.parse("21:00:00", time)));
 		};
+	}
+
+	@Bean
+	FirebaseMessaging firebaseMessaging() throws IOException {
+		GoogleCredentials googleCredentials = GoogleCredentials
+				.fromStream(new ClassPathResource("firebase-service-account.json").getInputStream());
+		FirebaseOptions firebaseOptions = FirebaseOptions
+				.builder()
+				.setCredentials(googleCredentials)
+				.build();
+		FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "my-app");
+		return FirebaseMessaging.getInstance(app);
 	}
 
 }
