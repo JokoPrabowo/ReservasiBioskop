@@ -35,16 +35,16 @@ public class SeatTest {
     }
 
     @Test
-    @DisplayName("Post Method - Create user")
-    public void createUSer(){
+    @DisplayName("Post Method - Create seat")
+    public void createSeat(){
         SeatsEntity data = new SeatsEntity(new SeatId('X', 1), 1, null, true);
         Mockito.when(seatsRepo.save(data)).thenReturn(data);
         assertEquals(data, seatsRepo.save(data));
     }
 
     @Test
-    @DisplayName("Put Method - Update user")
-    public void updateUser(){
+    @DisplayName("Put Method - Update seat")
+    public void updateSeat(){
         SeatsEntity data = new SeatsEntity(new SeatId('X', 1), 1, null, false);
         SeatModel model = new SeatModel('X', 1, 1, false);
         Mockito.when(seatsServiceImpl.update(new SeatId('X', 1), model)).thenReturn(data);
@@ -52,16 +52,16 @@ public class SeatTest {
     }
 
     @Test
-    @DisplayName("Get Method - Get user by id")
-    public void getUserById(){
+    @DisplayName("Get Method - Get seat by id")
+    public void getSeatById(){
         Boolean seatStatus = true;
         SeatsEntity seat = seatsServiceImpl.findOne(new SeatId('X', 1));
         assertEquals(seatStatus, seat.isSeatStatus());
     }
 
     @Test
-    @DisplayName("Get Method - Get all users")
-    public void getAllUsers(){
+    @DisplayName("Get Method - Get all seats")
+    public void getAllSeats(){
         List<SeatsEntity> seats = new ArrayList<>();
         assertEquals(seats, seatsServiceImpl.findAll());
     }

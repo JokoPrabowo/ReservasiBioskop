@@ -36,7 +36,7 @@ public class TicketTest {
 
     @Test
     @DisplayName("Post Method - Create ticket")
-    public void createticket(){
+    public void createTicket(){
         TicketsEntity data = new TicketsEntity(null, "user", null, 1, null, 'A', 1);
         Mockito.when(ticketsRepo.save(data)).thenReturn(data);
         assertEquals(data, ticketsRepo.save(data));
@@ -44,7 +44,7 @@ public class TicketTest {
 
     @Test
     @DisplayName("Put Method - Update ticket")
-    public void updateticket(){
+    public void updateTicket(){
         TicketsEntity data = new TicketsEntity(null, "user", null, 1, null, 'A', 2);
         TicketModel model = new TicketModel("user", 1, 'A', 2);
         Mockito.when(ticketsServiceImpl.update(1, model)).thenReturn(data);
@@ -53,7 +53,7 @@ public class TicketTest {
 
     @Test
     @DisplayName("Get Method - Get ticket by id")
-    public void getticketById(){
+    public void getTicketById(){
         String user = "user";
         TicketsEntity ticket = ticketsServiceImpl.findOne(1);
         assertEquals(user, ticket.getUsername());
@@ -61,7 +61,7 @@ public class TicketTest {
 
     @Test
     @DisplayName("Get Method - Get all tickets")
-    public void getAlltickets(){
+    public void getAllTickets(){
         List<TicketsEntity> tickets = new ArrayList<>();
         assertEquals(tickets, ticketsServiceImpl.findAll());
     }

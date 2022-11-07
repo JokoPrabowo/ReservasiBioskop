@@ -35,7 +35,7 @@ public class StudioTest {
 
     @Test
     @DisplayName("Post Method - Create studio")
-    public void createstudio(){
+    public void createStudio(){
         StudiosEntity data = new StudiosEntity(null, "Alpha");
         Mockito.when(studiosRepo.save(data)).thenReturn(data);
         assertEquals(data, studiosRepo.save(data));
@@ -43,7 +43,7 @@ public class StudioTest {
 
     @Test
     @DisplayName("Put Method - Update studio")
-    public void updatestudio(){
+    public void updateStudio(){
         StudiosEntity data = new StudiosEntity(null, "Omega");
         StudioModel model = new StudioModel("Omega");
         Mockito.when(studiosServiceImpl.update(1, model)).thenReturn(data);
@@ -52,7 +52,7 @@ public class StudioTest {
 
     @Test
     @DisplayName("Get Method - Get studio by id")
-    public void getstudioById(){
+    public void getStudioById(){
         String name = "Alpha";
         StudiosEntity studio = studiosServiceImpl.findOne(1);
         assertEquals(name, studio.getStudioName());
@@ -60,7 +60,7 @@ public class StudioTest {
 
     @Test
     @DisplayName("Get Method - Get all studios")
-    public void getAllstudios(){
+    public void getAllStudios(){
         List<StudiosEntity> studios = new ArrayList<>();
         assertEquals(studios, studiosServiceImpl.findAll());
     }

@@ -47,7 +47,7 @@ public class FilmTest {
 
     @Test
     @DisplayName("Put Method - Update film")
-    public void updateUser(){
+    public void updateFilm(){
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         FilmModel model = new FilmModel("F0000", "Film Example", "Example", LocalDate.parse("30/12/2022", date));
         FilmsEntity data = new FilmsEntity("F0000", "Film Example", "Example", LocalDate.parse("30/12/2022", date));
@@ -57,7 +57,7 @@ public class FilmTest {
 
     @Test
     @DisplayName("Get Method - Get film by id")
-    public void getUserById(){
+    public void getFilmById(){
         String name = "Film Example";
         FilmsEntity film = filmsServiceImpl.findOne("F0000");
         assertEquals(name, film.getFilmName());
@@ -65,7 +65,7 @@ public class FilmTest {
 
     @Test
     @DisplayName("Get Method - Get all films")
-    public void getAllUsers(){
+    public void getAllFilms(){
         List<FilmsEntity> films = new ArrayList<>();
         assertEquals(films, filmsServiceImpl.findAll());
     }

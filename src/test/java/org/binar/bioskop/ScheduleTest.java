@@ -40,7 +40,7 @@ public class ScheduleTest {
 
     @Test
     @DisplayName("Post Method - Create schedule")
-    public void createschedule(){
+    public void createSchedule(){
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter time = DateTimeFormatter.ofPattern("HH:mm:ss");
         SchedulesEntity data = new SchedulesEntity(null, "F0001", null, 1, null, 75000, LocalDate.parse("20/12/2022", date), LocalTime.parse("10:00:00", time), LocalTime.parse("12:30:00", time));
@@ -50,7 +50,7 @@ public class ScheduleTest {
 
     @Test
     @DisplayName("Put Method - Update schedule")
-    public void updateschedule(){
+    public void updateSchedule(){
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter time = DateTimeFormatter.ofPattern("HH:mm:ss");
         SchedulesEntity data = new SchedulesEntity(null, "F0001", null, 1, null, 75000, LocalDate.parse("20/12/2022", date), LocalTime.parse("11:00:00", time), LocalTime.parse("13:30:00", time));
@@ -61,7 +61,7 @@ public class ScheduleTest {
 
     @Test
     @DisplayName("Get Method - Get schedule by id")
-    public void getscheduleById(){
+    public void getScheduleById(){
         String code = "F0001";
         SchedulesEntity schedule = schedulesServiceImpl.findOne(1);
         assertEquals(code, schedule.getFilmCode());
@@ -69,7 +69,7 @@ public class ScheduleTest {
 
     @Test
     @DisplayName("Get Method - Get all schedules")
-    public void getAllschedules(){
+    public void getAllSchedules(){
         List<SchedulesEntity> schedules = new ArrayList<>();
         assertEquals(schedules, schedulesServiceImpl.findAll());
     }

@@ -35,7 +35,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Post Method - Create user")
-    public void createUSer(){
+    public void createUser(){
         UsersEntity data = new UsersEntity("user", "user@gmail.com", "user123");
         Mockito.when(usersRepo.save(data)).thenReturn(data);
         assertEquals(data, usersRepo.save(data));
